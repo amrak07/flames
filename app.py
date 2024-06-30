@@ -6,10 +6,14 @@ app = Flask(__name__)
 user_details = []
 
 def get_relationship(name1, name2):
-    name1 = name1.replace(" ", "").lower()
-    name2 = name2.replace(" ", "").lower()
-    common_letters = list(set(name1) & set(name2))
-    total_letters = len(name1) + len(name2) - 2 * len(common_letters)
+    name1 = list(name1.replace(" ", "").lower())
+    name2 = list(name2.replace(" ", "").lower())
+    for i in name2:
+        if not i in name1:
+            name1.append(i)
+        else:
+            name1.remove(i)
+    total_letters = len(name1)
     flames = ["Friends", "Love", "Affection", "Marriage", "Enemy", "Sibling"]
     while len(flames) > 1:
         index = total_letters % len(flames) - 1
